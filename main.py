@@ -7,7 +7,7 @@ from rich import print
 from source.logic import get_arbitrage_opportunities, compute_arbitrage_stakes
 
 
-
+API_KEY = "Your key here"
 def main():
     load_dotenv()
 
@@ -17,8 +17,8 @@ def main():
     )
     parser.add_argument(
         "-k", "--key",
-        default=os.environ.get("f5d7b976a9cc1252a51661d07543cc54"),
-        help="The API key from The Odds API. If left blank it will default to the value of $API_KEY."
+        default=API_KEY,
+        help="The API key from The Odds API."
     )
     parser.add_argument(
         "-r", "--region",
@@ -48,10 +48,10 @@ def main():
 
     cutoff = args.cutoff/100
 
-    arbitrage_opportunities = get_arbitrage_opportunities(key="f5d7b976a9cc1252a51661d07543cc54", region=args.region, cutoff=cutoff)
+    arbitrage_opportunities = get_arbitrage_opportunities(key=API_KEY, region=args.region, cutoff=cutoff)
 
     arbitrage_opportunities = list(arbitrage_opportunities)
-    print(f"{len(arbitrage_opportunities)} arbitrage opportunities found {':money-mouth_face:' if len(arbitrage_opportunities) > 0 else ':man_shrugging:'}")
+    print(f"{len(arbitrage_opportunities)} arbitrage opportunities found")
 
     for arb in arbitrage_opportunities:
         print(f"\n\t[italic]{arb['match_name']} in {arb['league']}[/italic]")
